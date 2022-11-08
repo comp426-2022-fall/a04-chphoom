@@ -33,11 +33,11 @@
     {
       "name": "Test script",
       "setup": "npm install",
-      "run": "npm test",
+      "run": "(timeout --signal=SIGINT 5 npm test; exit 0) & sleep 1s && curl -s http://localhost:5555/app/ && sleep 5s",
       "input": "",
-      "output": "5555",
+      "output": "200 OK",
       "comparison": "included",
-      "timeout": 1,
+      "timeout": 10,
       "points": 5000
     },
     {
