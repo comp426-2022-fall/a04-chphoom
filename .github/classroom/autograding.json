@@ -43,7 +43,7 @@
     {
       "name": "Roll random dice",
       "setup": "npm install",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; SIDES=\"$(shuf -i 4-20 -n 1)\"; DICE=\"$(shuf -i 1-4 -n 1)\"; ROLLS=\"$(shuf -i 1-3 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT; exit 0) & sleep 1s && curl -s -d 'sides=${SIDES}&dice=${DICE}&rolls=${ROLLS}' http://localhost:${PORT}/app/roll/ && sleep 5s",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; SIDES=\"$(shuf -i 4-20 -n 1)\"; DICE=\"$(shuf -i 1-4 -n 1)\"; ROLLS=\"$(shuf -i 1-3 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=\"$PORT\"; exit 0) & sleep 1s && curl -s -d 'sides=\"$SIDES\"&dice=\"$DICE\"&rolls=\"$ROLLS\"' http://localhost:${PORT}/app/roll/ && sleep 5s",
       "input": "",
       "output": "{\"sides\":([4-9]|1[0-9]|20),\"dice\":([1-4]),\"rolls\":([1-3]),\"results\":\\[(([1-9]|[1-7][0-9]|80),?){0,2}(([1-9]|[1-7][0-9]|80)\\])}",
       "comparison": "regex",
@@ -53,7 +53,7 @@
     {
       "name": "Default roll endpoint",
       "setup": "npm install",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT; exit 0) & sleep 1s && curl -s http://localhost:${PORT}/app/roll/ && sleep 5s",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=\"$PORT\"; exit 0) & sleep 1s && curl -s http://localhost:\"$PORT\"/app/roll/ && sleep 5s",
       "input": "",
       "output": "{\"sides\":6,\"dice\":2,\"rolls\":1,\"results\":\\[([2-9]|1[0-2])\\]}",
       "comparison": "regex",
@@ -63,7 +63,7 @@
     {
       "name": "sides dice rolls parameters endpoint",
       "setup": "npm install",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; SIDES=\"$(shuf -i 4-20 -n 1)\"; DICE=\"$(shuf -i 1-4 -n 1)\"; ROLLS=\"$(shuf -i 1-3 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT; exit 0) & sleep 1s && curl -s http://localhost:${PORT}/app/roll/${SIDES}/${DICE}/${ROLLS}/ && sleep 5s",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; SIDES=\"$(shuf -i 4-20 -n 1)\"; DICE=\"$(shuf -i 1-4 -n 1)\"; ROLLS=\"$(shuf -i 1-3 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=\"$PORT\"; exit 0) & sleep 1s && curl -s http://localhost:\"$PORT\"/app/roll/\"$SIDES\"/\"$DICE\"/\"$ROLLS\"/ && sleep 5s",
       "input": "",
       "output": "{\"sides\":([4-9]|1[0-9]|20),\"dice\":([1-4]),\"rolls\":([1-3]),\"results\":\\[(([1-9]|[1-7][0-9]|80),?){0,2}(([1-9]|[1-7][0-9]|80)\\])}",
       "comparison": "regex",
@@ -73,7 +73,7 @@
     {
       "name": "sides dice endpoint",
       "setup": "",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; SIDES=\"$(shuf -i 4-20 -n 1)\"; DICE=\"$(shuf -i 1-4 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT; exit 0) & sleep 1s && curl -s http://localhost:${PORT}/app/roll/${SIDES}/${DICE}/ && sleep 5s",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; SIDES=\"$(shuf -i 4-20 -n 1)\"; DICE=\"$(shuf -i 1-4 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=\"$PORT\"; exit 0) & sleep 1s && curl -s http://localhost:\"$PORT\"/app/roll/\"$SIDES\"/\"$DICE\"/ && sleep 5s",
       "input": "",
       "output": "{\"sides\":([4-9]|1[0-9]|20),\"dice\":([1-4]),\"rolls\":1,\"results\":\\[([1-9]|[1-7][0-9]|80)\\]}",
       "comparison": "regex",
@@ -83,7 +83,7 @@
     {
       "name": "sides endpoint",
       "setup": "",
-      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; SIDES=\"$(shuf -i 4-20 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=$PORT; exit 0) & sleep 1s && curl -s http://localhost:${PORT}/app/roll/${SIDES}/ && sleep 5s",
+      "run": "PORT=\"$(shuf -i 2000-65535 -n 1)\"; SIDES=\"$(shuf -i 4-20 -n 1)\"; (timeout --signal=SIGINT 5 node server.js --port=\"$PORT\"; exit 0) & sleep 1s && curl -s http://localhost:\"$PORT\"/app/roll/\"$SIDES\"/ && sleep 5s",
       "input": "",
       "output": "{\"sides\":([4-9]|1[0-9]|20),\"dice\":2,\"rolls\":1,\"results\":\\[([1-9]|[1-3][0-9]|40)\\]}",
       "comparison": "regex",
