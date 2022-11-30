@@ -4,7 +4,7 @@ import express from "express";
 
 const app = express();
 const args = minimist(process.argv.slice(2));
-const port = args.port ? args.port : 5000;
+const port = args.port || 5000;
 
 app.use(express.urlencoded({extended: true}));
 
@@ -13,10 +13,7 @@ var sides = 6;
 var dice = 2;
 var rolls = 1;
 
-// Default API endpoint that returns 404 NOT FOUND for any endpoints that are not defined.
-app.get('/app/*', (req, res)=>{
-    res.send("404 NOT FOUND")
-});
+
 // Check endpoint at /app/ that returns 200 OK.
 app.get('/app', (req, res)=>{
     res.send("200 OK")
@@ -50,6 +47,11 @@ app.get('/app/roll/:sides/:dice/', (req, res)=>{
 // ALL endpoints should return HTTP headers including a status code and the appropriate content type for the response.
 app.get('/app/roll/:sides/:dice/:rolls/', (req, res)=>{
     res.send(roll(parseInt(req.params.sides),parseInt(req.params.dice),parseInt(req.params.rolls)))
+});
+
+// Default API endpoint that returns 404 NOT FOUND for any endpoints that are not defined.
+app.get('/app/*', (req, res)=>{
+    res.send("404 NOT FOUND")
 });
 
 app.listen(port);
