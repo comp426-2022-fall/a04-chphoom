@@ -34,7 +34,7 @@ app.post('/app/roll', (req, res)=>{
 //For example, /app/roll/6/ should return JSON for two six-sided dice, rolled one time, whereas /app/roll/10/ should return JSON for two ten-sided dice, rolled 1 time.
 //The format of the resulting JSON should look like: {"sides":10,"dice":2,"rolls":1,"results":[17]}.
 app.get('/app/roll/:sides/', (req, res)=>{
-    res.send(roll(parseInt(req.params.sides),sides,rolls))
+    res.send(roll(parseInt(req.params.sides),dice,rolls))
 });
 // Endpoint /app/roll/:sides/:dice/ that returns JSON for a default number of rolls with whatever number of sides and dice specified in the parameters. 
 //For example, /app/roll/6/2/ should return JSON for two six-sided dice, rolled one time, whereas /app/roll/10/3/ should return JSON for three ten-sided dice, rolled 1 time. 
